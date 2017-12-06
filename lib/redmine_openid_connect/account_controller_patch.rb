@@ -105,11 +105,13 @@ module RedmineOpenidConnect
         if user.nil?
           user = User.new
 
-          user.login = user_info["user_name"]
+          # https://docs.gitlab.com/ee/api/users.html
+
+          user.login = user_info["username"]
 
           attributes = {
-            firstname: user_info["given_name"],
-            lastname: user_info["family_name"],
+            firstname: user_info["name"],
+            lastname: user_info["name"],
             mail: user_info["email"],
             mail_notification: 'only_my_events',
             last_login_on: Time.now

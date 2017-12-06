@@ -171,8 +171,9 @@ class OicSession < ActiveRecord::Base
       "response_type" => "code",
       "state" => self.state,
       "nonce" => self.nonce,
-      "scope" => "openid profile email user_name",
-      "redirect_uri" => "#{host_name}/oic/local_login",
+      #"scope" => "openid profile email user_name",
+      'scope' => 'openid api read_user',
+      "redirect_uri" => "#{host_name}/redmine/oic/local_login",
       "client_id" => client_config['client_id'],
     }
   end
@@ -181,9 +182,10 @@ class OicSession < ActiveRecord::Base
     query = {
       'grant_type' => 'authorization_code',
       'code' => code,
-      'scope' => 'openid profile email user_name',
+      #'scope' => 'openid profile email user_name',
+      'scope' => 'openid api read_user',
       'id_token' => id_token,
-      'redirect_uri' => "#{host_name}/oic/local_login",
+      'redirect_uri' => "#{host_name}/redmine/oic/local_login",
     }
   end
 
@@ -191,7 +193,8 @@ class OicSession < ActiveRecord::Base
     query = {
       'grant_type' => 'refresh_token',
       'refresh_token' => refresh_token,
-      'scope' => 'openid profile email user_name',
+      #'scope' => 'openid profile email user_name',
+      'scope' => 'openid api read_user',
     }
   end
 
@@ -199,7 +202,7 @@ class OicSession < ActiveRecord::Base
    query = {
      'id_token_hint' => id_token,
      'session_state' => session_state,
-     'post_logout_redirect_uri' => "#{host_name}/oic/local_logout",
+     'post_logout_redirect_uri' => "#{host_name}/redmine/oic/local_logout",
    }
   end
 
